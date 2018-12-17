@@ -1,8 +1,11 @@
 <?php
-
 /**
  * Sample code illustrating techniques to regenerate cached data using wp-cron
  *
+ * Schedules a task to generate a list of the most recent 25 post IDs every hour
+ * Saves the result for a year in a transient
+ * When a post is updated, schedules an update of the list immediately
+ * When the data is accessed from a template, fetches the underlying post data (usually from cache)
  */
 
 // on init, hook the function to the action
@@ -27,10 +30,21 @@ function my_reschedule_cron_for_now() {
 // cron task to generate posts, it could have an optional set of params eg category
 // this runs under wp_cron asynchronously
 function my_regenerate_posts() {
+	$cache_key = 'my_cache_key';    // cache key
+	$some_url = 'http://example.com/url-with-posts/'; // URL to invalidate
+
 	// do the query here
-	// ...
+
+	// ... WP_Query code here
+	$args = [
+		'post_type' => 'post',
+		'posts_per_page' => 25,
+		'fields' => 'ids',
+	];
+	$query = new WP_Query( $args );
+
 	// save it in a transient for a long time
-	set_transient( $cache_key, $posts, YEAR_IN_SECONDS );
+	set_transient( $cache_key, $query->posts, YEAR_IN_SECONDS );
 
 	// optional for VIP Go if you have known endpoints
 	wpcom_vip_purge_edge_cache_for_url( $some_url );
@@ -40,11 +54,19 @@ function my_regenerate_posts() {
 // code that gets the posts - it does not attempt to query if there are no posts
 // this would be called from your widget, or theme, or plugin code
 function my_get_posts() {
+	$cache_key = 'my_cache_key';    // cache key
+	$posts = [];   // posts array
+
 	// get the cached data. Return an error if there's no data
-	$posts = get_transient( $cache_key );
+	$ids = get_transient( $cache_key );
 	if ( false === $posts ) {
-		metro_reschedule_cron_for_now();
-		return [];
+		my_reschedule_cron_for_now();
+		return $posts;
+	}
+
+	// get the underlying post data (from cache usually)
+	foreach ( $ids as $post_id ) {
+		$posts[] = get_post( $post_id );
 	}
 	return $posts;
 }
