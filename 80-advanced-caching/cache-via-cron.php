@@ -4,7 +4,7 @@
  *
  * Schedules a task to generate a list of the most recent 25 post IDs every hour
  * Saves the result for a year in a transient
- * When a post is updated, schedules an update of the list immediately
+ * When a post is published, schedules an update of the list immediately
  * When the data is accessed from a template, fetches the underlying post data (usually from cache)
  */
 
@@ -31,15 +31,16 @@ function my_reschedule_cron_for_now() {
 // this runs under wp_cron asynchronously
 function my_regenerate_posts() {
 	$cache_key = 'my_cache_key';    // cache key
-	$some_url = 'http://example.com/url-with-posts/'; // URL to invalidate
+	$some_url = 'http://example.com/url-with-posts/'; // URL to invalidate, optional
 
-	// do the query here
-
-	// ... WP_Query code here
+	// Your query code here
 	$args = [
-		'post_type' => 'post',
 		'posts_per_page' => 25,
-		'fields' => 'ids',
+		'fields'         => 'ids',
+		'post_type'      => [ 'post' ],
+		'no_found_rows'  => true,
+		'order'          => 'DESC',
+		'orderby'        => 'date',
 	];
 	$query = new WP_Query( $args );
 
