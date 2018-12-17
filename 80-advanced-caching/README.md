@@ -14,13 +14,26 @@ function my_stampeding_cache() {
     $posts = wp_cache_get( 'latest_posts' );
     if ( false === $posts ) {
         // get the latest 3 posts
+	// See Section 70 - Querying - for tips on a more efficient query
+        $args = array(
+		'post_type'              => array( 'post' ),
+		'nopaging'               => true,
+		'posts_per_page'         => '3',
+		'no_found_rows'          => true,
+		'ignore_sticky_posts'    => true,
+		'order'                  => 'DESC',
+		'orderby'                => 'date',
+	);
 
-        wp_cache_set( 'latest_posts', $posts, 15 * MINUTES_IN_SECONDS );
+	// The Query
+	$query = new WP_Query( $args );
+
+        wp_cache_set( 'latest_posts', $query->posts, 15 * MINUTES_IN_SECONDS );
     }
 
-    // very simple list
+    // very simple list of post IDs
     foreach ( $posts as $post ) {
-        echo 
+        echo '<li>' . intval( $post->ID ) . '</li>';
     }
 
 }
