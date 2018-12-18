@@ -1,11 +1,18 @@
 # sample-code-vip
 Sample code snippets for a secure and performant WordPress.com VIP site
 
+## How to Use This Repository
+
+### [General Setup & Getting Started](00-getting-started)
+Install PHPCS and use it to help identify possible issues.
+
+A sample PHPCS configuration is included, but you can run PHPCS without it by setting up a general configuration.
+
 ## Security
 Security practices prevent third parties from impacting your site and users in various ways, or even using your 
 site to cause malicious attacks against other sites.
 
-### [Sanitizing and Escaping Inputs and Outputs](00-security)
+### [Sanitizing and Escaping Inputs and Outputs](10-security)
 Sanitization of user and third party inputs helps to prevent web-based attacks that can cause loss of data, user manipulation,
 or unauthorized changes or access.
 
