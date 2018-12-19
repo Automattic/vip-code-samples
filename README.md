@@ -2,6 +2,13 @@
 Sample code snippets for a secure and performant WordPress.com VIP site
 
 ## How to use this repository
+This repository contains snippets of example code.
+
+Unlike plugins, most bits of code will be all you need to perform a particular task. Where you actually put the snippets
+is up to you and may depend on how your code is structured.
+
+Do change the function prefixes to suit your theme or plugin and avoid a naming collision. And customize the code
+to your needs.
 
 ### [General setup & getting started](00-getting-started)
 Install PHPCS and use it to help identify possible issues.
