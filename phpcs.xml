@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<ruleset name="Sample PHPCS Project Configuration File">
+
+	<description>Defines PHPCS configuration that applies for this repository.</description>
+
+	<!-- Define code to exclude from scans -->
+	<exclude-pattern>config/*</exclude-pattern>
+	<exclude-pattern>assets/*</exclude-pattern>
+	<exclude-pattern>languages/*</exclude-pattern>
+
+	<!-- Use the standard VIP Go Ruleset -->
+	<rule ref="WordPress-VIP-Go"/>
+
+</ruleset>

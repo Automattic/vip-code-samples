@@ -43,7 +43,7 @@ function my_stampeding_cache() {
 ```
 
 As various front-end pages are being rebuilt in PHP processes initiated by a URL request, when the cache TTL expires,
-ech of the processes independently sees the cache is *gone*, and then they start identical and sometimes
+each of the processes independently sees the cache is *gone*, and then they start identical and sometimes
 parallel SQL queries that can be wasteful, or block resources for a period of time, in an attempt to obtain the underlying
 data.
 

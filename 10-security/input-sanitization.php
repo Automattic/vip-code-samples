@@ -31,6 +31,11 @@ function is_us_zip_code( $zip_code ) {
 }
 
 if ( isset( $_POST['wporg_zip_code'] ) && is_us_zip_code( sanitize_text_field( $_POST['wporg_zip_code'] ) ) ) {
-    // your action
+    // assign the sanitized data
     $zip = sanitize_text_field( $_POST['wporg_zip_code'] );
+
+    // another way, does not use WordPress sanitization, does avoid PHPCS warnings
+    filter_input( INPUT_POST, 'wporg_zip_code', FILTER_SANITIZE_STRING );
+
+    // your action
 }
