@@ -13,12 +13,25 @@ You're welcome to copy, use, and amend the  examples here for use on your site.
 ## How to use this repository
 This repository contains snippets of example code.
 
+### Using code in your theme or plugin
 Unlike plugins, which usually are more involved and provide configuration options accessible through wp-admin,
 most bits of code here will be all you need to perform a particular task. Where you actually put the snippets
 is up to you and may depend on how your code is structured.
 
 Please do change the function and hook prefixes to suit your theme or plugin and avoid a naming collision. And customize the code
 to your needs.
+
+### Contributing
+If you see something that needs improvement or is incorrect, please open an issue.
+
+And if you have some example code that helps with something we haven't touched on here, or is a better approach,
+please open a pull request.
+
+### Getting assistance from the VIP team
+If you have questions about a
+particular example and need assistance implementing it for your site, and are a VIP client or partner,
+then please open a support ticket with us and we'll help clarify or assist you in solving your particular
+problem.
 
 ### [General setup & getting started](00-getting-started)
 Install PHPCS and use it to help identify possible issues.
