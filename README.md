@@ -1,7 +1,24 @@
 # sample-code-vip
 Sample code snippets for a secure and performant WordPress.com VIP site
 
+## About this repository
+The code and narrative here is meant to augment the [VIP Documentation](https://vip.wordpress.com/documentation/vip-go/). 
+
+While our documentation provides a reference for 
+the features of the VIP Platform and how to develop on it, we've gathered here some sample code that directly
+illustrates the main points.
+
+You're welcome to copy, use, and amend the  examples here for use on your site.
+
 ## How to use this repository
+This repository contains snippets of example code.
+
+Unlike plugins, which usually are more involved and provide configuration options accessible through wp-admin,
+most bits of code here will be all you need to perform a particular task. Where you actually put the snippets
+is up to you and may depend on how your code is structured.
+
+Please do change the function and hook prefixes to suit your theme or plugin and avoid a naming collision. And customize the code
+to your needs.
 
 ### [General setup & getting started](00-getting-started)
 Install PHPCS and use it to help identify possible issues.
