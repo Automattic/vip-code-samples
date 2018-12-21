@@ -10,8 +10,8 @@ Input sanitization ensures that code is only handling safe and expected values o
 ### nonces
 A nonce ensures that the action being taken in a form came from the form and was intended by the user.
 
-### output escaping
-Output escaping is meant to prevent XSS and similar attacks
+### [output escaping](output-escaping.php)
+Output escaping is meant to prevent XSS and similar attacks.
 
 WordPress provides a vast set of helpful escaping tools to avoid this on the server.
 
