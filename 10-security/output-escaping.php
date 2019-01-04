@@ -40,13 +40,13 @@ function my_output_title() {
 
 	// classically found in templates
 	?>
-	<h3><?php the_title(); ?></h3>
+	<h3 alt="<?php the_title_attribute(); ?>"><?php the_title(); ?></h3>
 	<?php
 
 	// do not use esc_html( get_the_title() ) - unnecessary and HTML will be escaped
 	echo '<h3>' . get_the_title() . '</h3>'; // this is OK, but any HTML in the title will only be run throgh the the_title filter
 
-	// using the_title in an attribute - this is also already escaped
-	echo '<h3 alt="' . the_title_attribute() . '">' . get_the_title() . '</h3>';
+	// using the_title in an attribute - this is also already escaped, use 'echo=0' as a parameter to return instead of echo
+	echo '<h3 alt="' . the_title_attribute( 'echo=0' ) . '">' . get_the_title() . '</h3>';
 
 }
