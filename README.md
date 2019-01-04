@@ -72,7 +72,7 @@ certain spiky usage patterns.
 
 ### Jetpack search
 
-### Image resizing
+### [Image resizing](120-images)
 
 ### Filesystem
 
