@@ -72,7 +72,7 @@ certain spiky usage patterns.
 
 ### Jetpack search
 
-### Image resizing
+### [Image resizing](120-images)
 
 ### Filesystem
 
@@ -97,3 +97,5 @@ certain spiky usage patterns.
 ### Header navigation generation
 
 ### Many posts and slower basic queries
+
+## [Miscellaneous things](999-misc)
