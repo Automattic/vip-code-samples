@@ -97,3 +97,5 @@ certain spiky usage patterns.
 ### Header navigation generation
 
 ### Many posts and slower basic queries
+
+## [Miscellaneous things](999-misc)
