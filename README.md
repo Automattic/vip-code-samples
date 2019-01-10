@@ -48,7 +48,7 @@ or unauthorized changes or access.
 
 ## General practices with WordPress
 
-### Preventing fatal errors and warnings
+### [Preventing fatal errors and warnings](20-preventing-bad-things)
 Common causes of errors are: declaring functions that haven't been loaded, acessing values without checking their type
 
 ### Debugging in development
@@ -70,7 +70,7 @@ certain spiky usage patterns.
 
 ## Advanced features of the VIP Platform
 
-### Jetpack search
+### [Jetpack search](110-jetpack-search)
 
 ### [Image resizing](120-images)
 
