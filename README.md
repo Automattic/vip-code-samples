@@ -70,7 +70,7 @@ certain spiky usage patterns.
 
 ## Advanced features of the VIP Platform
 
-### Jetpack search
+### [Jetpack search](110-jetpack-search)
 
 ### [Image resizing](120-images)
 
