@@ -7,7 +7,7 @@ Here are some examples that can result in unwanted outages.
 
 The accompanying code examples show how to avoid them.
 
-== Fatal Errors
+== [Fatal Errors](prevention-fatal.php)
 
 === Functions colliding
 
@@ -41,32 +41,54 @@ or active.
 $redirect = srm_create_redirect( '/old/', '/new/', 301);
 ```
 
-Also, because WordPress doesn't load certain files for the front end, it's sometimes worth checking
-whether the file that declares the function has been loaded.
+It's especially important, when creating a plugin that relies on another plugin, to check for and avoid this.
+
+Also, because WordPress doesn't load certain (wp-admin) files for the front end, it's sometimes worth checking
+for that function and manually loading the file if necessary.
 
 Another cause is from typos - hard to avoid, so some "smoke testing" is always useful.
 And the more unlikely causes of undeclared functions are caused by not using a namespace prefix where necessary
 
-== Warnings
+== [Warnings](prevention-warnings.php)
 
 PHP warnings and noticed won't necessarily cause problems for a site, but their presence suggests there's something
 that needs attention. Eliminating all warnings and notices is Good Practice and makes it easy to spot new issues
 in the PHP error_log. Having a lot of unnecessary warnings in the log will get in the way, clog your logs, use
 disk space, and make it hard to find and address new problems.
 
-Here are some of the most common errors, and example code that causes them:
+Using `WP_DEBUG` in development and displaying warnings and notices is a good development practice - warning
+conditions should be immediately obvious and can be quickly addressed and corrected.
+
+Here are some of the most common warnings or notices, and example code that causes them:
 
 === Not checking return values
 
+Accessing an array without making sure it is an array
 ```php
 // expecting an array
 $stuff = getStuff( $args );
 // unless getStuff is guaranteed to always return an array, this is not good...
-foreach ( $stuff as $thing ) {
-
+foreach ( $stuff as $thing ) { // Invalid argument supplied for foreach()
+    // actions
 }
+// this is common and also not good without checking $stuff:
+$thing1 = $stuff[0];
+// even worse
+$thing_name = $stuff[0]->getName();
 ```
 
+Using anything that is not a scalar as an index
+```php
+$redirect_to = [ 'foo' => 'foo.com', 'bar' => 'bar.com' ];
+$c = get_categories(); // returns an array
+
+// (other code that fails to convert $c to a single string)
+
+// this will fail because $c is an array
+$redirect_url = $redirect_to[ $c ];
+```
+
+Accessing objects that may not be what was expected
 ```php
 // expecting an object
 $something = getSomething( $id );
@@ -78,8 +100,9 @@ Certain functions return WP_Error when they fail. It's important to check that c
 
 ```php
 $categories = get_the_terms( $post->ID, 'category' );
-// if the result is WP_Error, this will throw warnings
+// if the result is WP_Error, this next line will throw warnings
 foreach ( $categories as $category ) {
     $cats[] = $category->name;
 }
 ```
+
