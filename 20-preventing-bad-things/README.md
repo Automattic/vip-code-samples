@@ -26,8 +26,9 @@ function get_permalink( $url ) {
 
 The best way to protect against collisions is to wrap their declaration with `function_exists`
 
-Anothe technique that works is to use a namespace, although this tends to introduce complexity.
-Using a class object and declaring methods is another way to avoid collisions.
+Alternate techniques:
+* use a class method
+* use a namespace (this tends to introduce complexity)
 
 ### Functions that do not exist
 

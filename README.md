@@ -51,6 +51,8 @@ or unauthorized changes or access.
 ### [Preventing fatal errors and warnings](20-preventing-bad-things)
 Common causes of errors are: declaring functions that haven't been loaded, acessing values without checking their type
 
+### [WordPress Basics: hooks and filters](30-basics)
+
 ### Debugging in development
 Use WP_DEBUG, utilize the debug bar, 
 
