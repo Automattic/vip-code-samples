@@ -9,7 +9,7 @@ Before enabling Jetpack search, please ensure that your site has been indexed.
 
 // How to check?
 
-== [Enable Jetpack Search via filters](jetpack-search.php)
+## [Enable Jetpack Search via filters](jetpack-search.php)
 
 A filter to add 'es' => 'true' to the WP_Query parameters allows you to enable existing queries, such as those for 
 a category page, or site search.
