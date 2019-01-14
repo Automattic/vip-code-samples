@@ -94,6 +94,8 @@ certain spiky usage patterns.
 
 ### REST API performance
 
+### The block editor
+
 ### Mobile app endpoints
 
 ### Header navigation generation
