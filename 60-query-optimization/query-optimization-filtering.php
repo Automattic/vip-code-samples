@@ -21,9 +21,10 @@ function my_main_query_filter( $query ) {
 	if ( is_admin() || ! $query->is_main_query() ) {
 		return;
 	}
-	$last_month = strtotime( 'last month' );
 	// Only perform this action on the News category
-	if ( is_category( 88 ) ) {
+	if ( is_category( 6 ) ) {
+		// limit to posts since 1 month ago
+		$last_month = strtotime( 'last month' );
 		$date_filter = [
 			'after' => [
 				'year' => date( 'Y', $last_month ),
