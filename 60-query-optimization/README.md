@@ -40,6 +40,9 @@ Now, if your site has a few hundred posts, there should be no concern.
 However, let's say you're a large site with several years' worth of content, much of it in the news
 category. Let's see where this may be inefficient and how you can speed things up.
 
+First, you'll note the taxonomy ID list also includes several other IDs - those are child categories such as "Political News" that
+are likely unnecessary if the posts already are tagged "News".
+
 If you run EXPLAIN on the query above, and you do have a lot of posts in wp_posts, you'll likely see 
 something like this:
 
@@ -62,12 +65,18 @@ We need to reduce the amount of space and if possible eliminate the sorting.
 Here's how to improve the query:
 
 1. Narrow down the date range. Have a look at the results and see how many days back that goes on average. Then just to be safe, double the number of days
-back. And add the following filter:
+back. And add the `date_query` attribute below.
+
+2. Remove the [child categories](https://vip.wordpress.com/documentation/term-queries-should-consider-include_children-false/).
+That's accomplished by adding the `include_children` attribute below.
 
 ```php
 function my_performance_improvement_query_filter( $query ) {
 	if ( is_admin() || ! $query->is_main_query() ) {
 		return;
+	}
+	if ( $query->is_category() ) {
+		$query->set( 'include_children', false );
 	}
 	if ( $query->is_category( 6 ) ) {
 	    $last_month = strtotime( 'last month' );
@@ -91,7 +100,7 @@ FROM wp_posts
 LEFT JOIN wp_term_relationships ON 
     (wp_posts.ID = wp_term_relationships.object_id)
 WHERE 1=1 AND ( 
-    wp_term_relationships.term_taxonomy_id IN (6,22,44,88,201,10276) )
+    wp_term_relationships.term_taxonomy_id IN (6) )
     AND wp_posts.post_type = 'post'
     AND (wp_posts.post_status = 'publish' OR wp_posts.post_status = 'private')
     AND wp_posts.post_date > '2019-01-03 00:00:00'
@@ -106,7 +115,7 @@ And the EXPLAIN:
 | id | select_type | table                 | type  | possible_keys            | key              | key_len | ref         | rows | Extra                                              |
 +----+-------------+-----------------------+-------+--------------------------+------------------+---------+-------------+------+----------------------------------------------------+
 | 1  | SIMPLE      | wp_posts              | range | PRIMARY,type_status_date | type_status_date | 52      |             | 5825 | Using where; Using index; Using temporary; Using f |
-| 1  | SIMPLE      | wp_term_relationships | ref   | PRIMARY,term_taxonomy_id | PRIMARY          | 8       | wp_posts.ID | 1    | Using where; Using index                           |
+| 1  | SIMPLE      | wp_term_relationships | eq_ref| PRIMARY,term_taxonomy_id | PRIMARY          | 16      | wp_posts.ID | 1    | Using where; Using index                           |
 +----+-------------+-----------------------+-------+--------------------------+------------------+---------+-------------+------+----------------------------------------------------+
 ```
 So instead of 700k posts, we're only sorting 6k posts now (the number of posts since 1 month ago) 
