@@ -43,7 +43,7 @@ function callback() {
 
 For consistency, avoid `my_*`, `your_`, or `awesome_theme_` type prefixes.
 
-The user should replace the prefix when implementing the code, but without including a prefix we increase the risk of name collisions from a user forgetting to add their own. To that end, when possible to to prefix with `sc_vip__`
+The user should replace the prefix when implementing the code, but without including a prefix we increase the risk of name collisions from a user forgetting to add their own. To that end, when possible to prefix with `sc_vip__`
 
 ```php
 add_action( 'init', 'sc_vip__load_site' );
