@@ -1,9 +1,5 @@
 <?php
-/**
- * Create a menu page for our AJAX script.
- *
- * @see https://developer.wordpress.org/reference/functions/add_menu_page/
- */
+// Create a menu page for our AJAX script.
 add_action( 'admin_menu', function() {
 	$page_hook_suffix = add_menu_page(
 		'Ajax Form',
@@ -14,12 +10,12 @@ add_action( 'admin_menu', function() {
 	);
 } );
 
-/**
- * Contents for the Ajax Form menu page.
- */
+// Contents for the Ajax Form menu page.
 function _my_ajax_form_callback() {
 	/**
-	 * Create the nonce.
+	 * Create the nonce for our admin page.
+     *
+     * Include the action name for context.
 	 *
 	 * @see https://codex.wordpress.org/Function_Reference/wp_create_nonce
 	 */
@@ -37,12 +33,7 @@ function _my_ajax_form_callback() {
 			my_string: 'Freedom to Publish!'
 		};
 		$('#click_me').click(function() {
-			/**
-			 * Post our request to WordPress' AJAX URL
-			 *
-			 * @see https://codex.wordpress.org/AJAX_in_Plugins
-			 * @see https://api.jquery.com/jquery.post/
-			 */
+			// Post our request to WordPress' AJAX URL.
 			$.post( ajaxurl, data, function( response ) {
 				$('#_my_ajax_form_output').text("Response: " + response.data);
 			});
@@ -52,14 +43,12 @@ function _my_ajax_form_callback() {
 	<?php
 }
 
-/**
- * Our AJAX hook for the POST request.
- *
- * @see https://codex.wordpress.org/Plugin_API/Action_Reference/wp_ajax_(action)
- */
+// Our AJAX hook for the POST request.
 add_action( 'wp_ajax__my_ajax_form_action', function() {
 	/**
 	 * Verify the nonce exists & verify it's correct.
+	 *
+	 * Include the action name for context.
 	 *
 	 * @see https://codex.wordpress.org/Function_Reference/wp_verify_nonce
 	 */
