@@ -5,37 +5,37 @@ add_action( 'admin_menu', function() {
 		'Ajax Form',
 		'Ajax Form',
 		'publish_posts',
-		'_my_ajax_form',
-		'_my_ajax_form_callback'
+		'sc_vip__ajax_form',
+		'sc_vip__ajax_form_callback'
 	);
 } );
 
 // Contents for the Ajax Form menu page.
-function _my_ajax_form_callback() {
+function sc_vip__ajax_form_callback() {
 	/**
 	 * Create the nonce for our admin page.
-     *
-     * Include the action name for context.
+	 *
+	 * Include the action name for context.
 	 *
 	 * @see https://codex.wordpress.org/Function_Reference/wp_create_nonce
 	 */
-	$ajax_nonce = wp_create_nonce( "_my_ajax_form_nonce" );
+	$ajax_nonce = wp_create_nonce( "sc_vip__ajax_form_nonce" );
 	?>
 	<h1>AJAX Nonce</h1>
 	<input type='submit' class='button button-primary' id='click_me' value='Send AJAX Post Request »'>
-	<pre id='_my_ajax_form_output'></pre>
+	<pre id='sc_vip__ajax_form_output'></pre>
 
 	<script type="text/javascript">
 	jQuery(document).ready( function($) {
 		var data = {
-			action: '_my_ajax_form_action',
+			action: 'sc_vip__ajax_form_action',
 			security: <?php echo wp_json_encode( $ajax_nonce ); ?>,
 			my_string: 'Freedom to Publish!'
 		};
 		$('#click_me').click(function() {
 			// Post our request to WordPress' AJAX URL.
 			$.post( ajaxurl, data, function( response ) {
-				$('#_my_ajax_form_output').text("Response: " + response.data);
+				$('#sc_vip__ajax_form_output').text("Response: " + response.data);
 			});
 		});
 	});
@@ -44,7 +44,7 @@ function _my_ajax_form_callback() {
 }
 
 // Our AJAX hook for the POST request.
-add_action( 'wp_ajax__my_ajax_form_action', function() {
+add_action( 'wp_ajax_sc_vip__ajax_form_action', function() {
 	/**
 	 * Verify the nonce exists & verify it's correct.
 	 *
@@ -52,7 +52,7 @@ add_action( 'wp_ajax__my_ajax_form_action', function() {
 	 *
 	 * @see https://codex.wordpress.org/Function_Reference/wp_verify_nonce
 	 */
-	if ( ! isset( $_POST['security'] ) || ! wp_verify_nonce( $_POST['security'], '_my_ajax_form_nonce' ) ) {
+	if ( ! isset( $_POST['security'] ) || ! wp_verify_nonce( $_POST['security'], 'sc_vip__ajax_form_nonce' ) ) {
 		wp_send_json_error( '❌ invalid nonce' );
 	}
 	if ( ! current_user_can( 'publish_posts' ) ) {
