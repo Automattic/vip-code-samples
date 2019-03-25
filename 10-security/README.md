@@ -19,7 +19,7 @@ WordPress provides a vast set of helpful escaping tools to avoid this on the ser
 Since html inserted in the DOM (typically with JavaScript) is executed by the browser, it's important to insert unknown content in a secure manner.
 
 For example:
-```
+```javascript
 var myMessage = data[i]['message'];
 jQuery('#message').html( myMessage );
 ```

@@ -9,7 +9,7 @@ upon expiration of a direct cache TTL (time-to-live).
 For example, this code, in latest.php, which is included on every page and displays the most recent 3 posts,
 will probably result in a cache stampede every time it expires, since many different pages include the same code.
 
-```
+```php
 function my_stampeding_cache() {
     $posts = wp_cache_get( 'latest_posts' );
 
