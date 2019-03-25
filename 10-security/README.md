@@ -31,3 +31,7 @@ and, if myMessage happens to be the string `'<script>alert('hello');</script>'`,
 This can be particularly dangerous if the data being inserted comes from the URL (e.g. a query param) or a data source that is not under your control.
 
 See the code sample for how to overcome this.
+
+### [Escaping Dynamic JavaScript Values](js-dynamic.php)
+
+When it comes to sending dynamic data from PHP for JavaScript, care must be taken to ensure values are properly escaped. All values should be encoded and possibly decoded using variety of functions. See the code sample for examples.
