@@ -1,9 +1,9 @@
 <?php
 // Create a menu page for our AJAX script.
 add_action( 'admin_menu', function() {
-	$page_hook_suffix = add_menu_page(
-		'Ajax Form',
-		'Ajax Form',
+	add_menu_page(
+		'AJAX Nonce Example',
+		'AJAX Nonce Example',
 		'publish_posts',
 		'sc_vip__ajax_form',
 		'sc_vip__ajax_form_callback'
@@ -21,7 +21,7 @@ function sc_vip__ajax_form_callback() {
 	 */
 	$ajax_nonce = wp_create_nonce( "sc_vip__ajax_form_nonce" );
 	?>
-	<h1>AJAX Nonce</h1>
+	<h2>AJAX Nonce</h2>
 	<input type='submit' class='button button-primary' id='click_me' value='Send AJAX Post Request »'>
 	<pre id='sc_vip__ajax_form_output'></pre>
 
