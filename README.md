@@ -2,9 +2,9 @@
 Sample code snippets for a secure and performant WordPress.com VIP site
 
 ## About this repository
-The code and narrative here is meant to augment the [VIP Documentation](https://vip.wordpress.com/documentation/vip-go/). 
+The code and narrative here is meant to augment the [VIP Documentation](https://vip.wordpress.com/documentation/vip-go/).
 
-While our documentation provides a reference for 
+While our documentation provides a reference for
 the features of the VIP Platform and how to develop on it, we've gathered here some sample code that directly
 illustrates the main points.
 
@@ -22,10 +22,8 @@ Please do change the function and hook prefixes to suit your theme or plugin and
 to your needs.
 
 ### Contributing
-If you see something that needs improvement or is incorrect, please open an issue.
 
-And if you have some example code that helps with something we haven't touched on here, or is a better approach,
-please open a pull request.
+Please see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ### Getting assistance from the VIP team
 If you have questions about a
@@ -39,7 +37,7 @@ Install PHPCS and use it to help identify possible issues.
 A sample PHPCS configuration is included, but you can run PHPCS without it by setting up a general configuration.
 
 ## Security
-Security practices prevent third parties from impacting your site and users in various ways, or even using your 
+Security practices prevent third parties from impacting your site and users in various ways, or even using your
 site to cause malicious attacks against other sites.
 
 ### [Sanitizing and escaping inputs and outputs](10-security)
@@ -54,7 +52,7 @@ Common causes of errors are: declaring functions that haven't been loaded, acess
 ### [WordPress Basics: hooks and filters](30-basics)
 
 ### Debugging in development
-Use WP_DEBUG, utilize the debug bar, 
+Use WP_DEBUG, utilize the debug bar,
 
 ## Performance and optimization
 Performance tuning, and optimization strategies, help your site scale, perform better with fewer resources, and be more
@@ -67,7 +65,7 @@ Query optimization helps your WordPress queries run faster as your tables grow.
 Basic caching techniques avoid repetitive requests for the same thing.
 
 ### [Advanced caching](80-advanced-caching)
-Advanced caching techniques expand on caching to avoid some issues that caching can introduce, or protect your site from 
+Advanced caching techniques expand on caching to avoid some issues that caching can introduce, or protect your site from
 certain spiky usage patterns.
 
 ## Advanced features of the VIP Platform
