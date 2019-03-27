@@ -151,14 +151,14 @@ wp_term_relationships.term_taxonomy_id IN (123)
 
 And the posts can be retrieved with:
 
-```
+```php
 /* ✅ This approach is correct. */
 $my_posts = $my_query->posts;
 ```
 
 However, if the following is used by mistake instead of the `posts` property, a second query will fire. This query in addition to adding an unnecessary query, may break the intended query.
 
-```
+```php
 /* ❌ This approach is incorrect. */
 $my_posts = $my_query->get_posts();
 ```
