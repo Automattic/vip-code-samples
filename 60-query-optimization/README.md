@@ -130,16 +130,45 @@ You can apply the same query filtering on a REST API request.
 The [`get_posts()`](https://developer.wordpress.org/reference/classes/wp_query/get_posts/) may be mistaken as a getter for the posts property, however it is not. Calling this outside of the constructor will fire another query which may result in an additional and possibly under performant query.
 
 ```php
-	$args = [
-		'posts_per_page' => '10',
-		'post_type'      => 'post',
-		'post_status'    => 'publish'
-	];
-	$my_query = new WP_Query($args);
+$args = [
+  'posts_per_page'      => '10',
+  'post_type'           => 'post',
+  'post_status'         => 'publish',
+  'no_found_rows'       => true,
+  'ignore_sticky_posts' => true,
+  'cat'                 => 123
+];
+$my_query = new WP_Query( $args );
+```
 
-	/* ❌ This approach is incorrect, it fires a second query. */
-	$my_posts = $my_query->get_posts();
+The above will query for these posts via the class constructor. The query will output as expected:
 
-	/* ✅ This approach is correct, it will get the posts already queried. */
-	$my_posts = $my_query->posts;
+```sql
+SELECT wp_posts.ID FROM wp_posts LEFT JOIN wp_term_relationships ON (wp_posts.ID = wp_term_relationships.object_id) WHERE 1=1 AND (
+wp_term_relationships.term_taxonomy_id IN (123)
+) AND wp_posts.post_type = 'post' AND ((wp_posts.post_status = 'publish')) GROUP BY wp_posts.ID ORDER BY wp_posts.post_date DESC LIMIT 0, 10
+```
+
+The posts can be retrieved with:
+
+```
+/* ✅ This approach is correct. */
+$my_posts = $my_query->posts;
+```
+
+However, if the following is used a second query will fire, and this query in addition to adding an unnecessary query, may break the intended query.
+
+```
+/* ❌ This approach is incorrect. */
+$my_posts = $my_query->get_posts();
+```
+
+Would result in a second query with an extra under performant `LEFT JOIN`:
+
+```sql
+SELECT wp_posts.ID FROM wp_posts LEFT JOIN wp_term_relationships ON (wp_posts.ID = wp_term_relationships.object_id) LEFT JOIN wp_term_relationships AS tt1 ON (wp_posts.ID = tt1.object_id) WHERE 1=1 AND (
+wp_term_relationships.term_taxonomy_id IN (123)
+AND
+tt1.term_taxonomy_id IN (123)
+) AND wp_posts.post_type = 'post' AND ((wp_posts.post_status = 'publish')) GROUP BY wp_posts.ID ORDER BY wp_posts.post_date DESC LIMIT 0, 10
 ```
