@@ -14,7 +14,7 @@ While writing an example, please keep in mind that users will be copy/pasting th
 
 ## Docblock
 
-Docblock'ing all functions and filters to [WordPress Coding Standards](https://make.wordpress.org/core/handbook/best-practices/coding-standards/php/) may make the snippets seem overwhelming. Keep comments single line when possible, but do include Docblocks on the main subject and include relevant `@see` links. For example if our subject was nonces in an options page, we'll comment everything, but only Blockdoc the nonces:
+Docblock'ing all functions and filters to [WordPress Coding Standards](https://make.wordpress.org/core/handbook/best-practices/coding-standards/php/) may make the snippets seem overwhelming. Keep comments single line when possible, but do include Docblocks on the main subject and include relevant `@see` links. For example if our subject was nonces in an options page, we'll comment what we need to help explain, but only Blockdoc the main subject, nonces:
 
 ```php
 // Create menu page.
