@@ -6,7 +6,11 @@ If you see something that needs improvement or is incorrect, please [open an iss
 
 And if you have some example code that helps with something we haven't touched on here, or is a better approach, please open a pull request.
 
-While writing an example, please keep in mind that users will be copy/pasting this code and then adapting it to their theme or plugin, the code is the main focus, but please consider:
+### README vs .PHP File
+
+The README files should explain the subject and possibly demonstrate bad examples. The correct way to approach things, the good stuff, should be placed in a linked to .php file. This allows folks to read the details and see explanations within the READMEs, then use the .php code (and modify it) in their own code. It's best to keep bad examples out of the .php files.
+
+While writing an example, please keep in mind that users will be copy/pasting this code and then adapting it to their theme or plugin. When writing .php files, be sure when possible to write the examples in a way that the code can be copied and pasted into a theme or plugin and actually work with no or minimal adjustments.
 
 ## Docblock
 
@@ -52,12 +56,6 @@ function sc_vip__load_site() {
     // ...
 }
 ```
-
-### README vs .PHP File
-
-The README files should explain the subject and possibly demonstrate bad examples. The correct way to approach things, the good stuff, should be placed in a linked to .php file. This allows folks to read the details and see explanations within the READMEs, then use the .php code (and modify it) in their own code. It's best to keep bad examples out of the .php files.
-
-When writing .php files, be sure when possible to write the examples in a way that the code can be copied and pasted into a theme or plugin and actually work with no adjustments.
 
 ### VIPCS
 
