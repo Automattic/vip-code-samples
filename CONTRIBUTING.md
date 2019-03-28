@@ -2,7 +2,7 @@
 
 Thank you for thinking about contributing to Sample Code VIP! Here are some guidelines while getting started.
 
-If you see something that needs improvement or is incorrect, please open an issue.
+If you see something that needs improvement or is incorrect, please [open an issue](https://github.com/Automattic/sample-code-vip/issues).
 
 And if you have some example code that helps with something we haven't touched on here, or is a better approach, please open a pull request.
 
