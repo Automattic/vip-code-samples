@@ -53,6 +53,12 @@ function sc_vip__load_site() {
 }
 ```
 
+### README vs .PHP File
+
+The README files should explain the subject and possibly demonstrate bad examples. The correct way to approach things, the good stuff, should be placed in a linked to .php file. This allows folks to read the details and see explanations within the READMEs, then use the .php code (and modify it) in their own code. It's best to keep bad examples out of the .php files.
+
+When writing .php files, be sure when possible to write the examples in a way that the code can be copied and pasted into a theme or plugin and actually work with no adjustments.
+
 ### VIPCS
 
 All code included should be compliment with WordPress-VIP-Go sniffs from [VIPCS](https://github.com/Automattic/VIP-Coding-Standards),
