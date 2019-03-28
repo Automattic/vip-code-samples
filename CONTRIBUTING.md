@@ -28,14 +28,14 @@ add_action( 'admin_menu', function() {
 function callback() {
 	/**
 	 * Create the nonce for our admin page.
-     *
-     * Include the action name for context.
+	 *
+	 * Include the action name for context.
 	 *
 	 * @see https://codex.wordpress.org/Function_Reference/wp_create_nonce
 	 */
 	$ajax_nonce = wp_create_nonce( "action_name" );
 
-    // ..
+	// ..
 }
 ```
 
