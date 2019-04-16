@@ -4,9 +4,12 @@
  * Serve static html from a directory
  * 
  * $html_map array maps the PATH to the file
- * the URL used should not have a file extension
- * The files should have a .html extension
- * the hook must happen early (e.g, in init)
+ *
+ * Note:
+ * * the URL used should not have a file extension
+ * * The files should have a .html extension
+ * * the hook must happen early (e.g, in init) to avoid other code possibly handling the request
+ *
  * e.g. http://mysite.com/howdy/world/ will serve __DIR__/docs/howdy.html
  */
 add_action( 'init', 'sc_vip__serve_file' );
@@ -23,6 +26,8 @@ function sc_vip__serve_file() {
                 // serve the contents of the whitelisted file
                 $filename = $html_map[ $current_path ];
                 $contents = file_get_contents( __DIR__ . '/docs/' . $filename . '.html' );
+                // add content-type header. Note that cache-control headers may also be appropriate.
+                header( 'Content-type: text/html' );
                 echo $contents;
                 exit;
         }
