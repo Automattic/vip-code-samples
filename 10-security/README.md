@@ -31,3 +31,25 @@ and, if myMessage happens to be the string `'<script>alert('hello');</script>'`,
 This can be particularly dangerous if the data being inserted comes from the URL (e.g. a query param) or a data source that is not under your control.
 
 See the code sample for how to overcome this.
+
+### [database Prepare statements](mysql-prepare.php)
+SQL injection is an attack vector that is very common. Hackers can insert SQL into your queries
+and cause havoc, insert text into your post content, create a backdoor user, or steal data.
+WordPress provides tools to build custom queries that avoid introducing these vulnerabilities.
+
+#### Always use prepare statements on variable input.
+
+This bit of code presents an attack vector. It seems to be adding a WHERE clause that searches post_title for
+titles starting with the supplied search string, e.g. 'Amaz' might find posts such as 'Amazon announces...'
+
+```
+$start = $query->get( 'search' );
+if ( $start ) {
+	$where .= " AND $wpdb->posts.post_title LIKE '$start%'";
+```
+
+However, because it doesn't use a prepare statement, the input data will not be safe from exploitation.
+
+Someone providing a query parameter or form input can easily access the database with a string such as `foo' || DROP TABLE wp_posts;;`
+
+That makes the SQL look like `AND $wpdb->posts.post_title LIKE 'foo' || DROP TABLE wp_posts;;`
