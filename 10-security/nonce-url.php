@@ -5,17 +5,17 @@ add_action( 'admin_menu', function() {
 		'URL Nonce Example',
 		'URL Nonce Example',
 		'publish_posts',
-		'sc_vip__url_link',
-		'sc_vip__url_link_callback'
+		'vip__url_link',
+		'vip__url_link_callback'
 	);
 } );
 
 // Contents for the example menu page.
-function sc_vip__url_link_callback () {
+function vip__url_link_callback () {
 	$url       = admin_url('options.php?page=my_plugin_settings');
-	$nonce_url = wp_nonce_url( $url, 'sc_vip__nonce_action', 'sc_vip__nonce_name' );
+	$nonce_url = wp_nonce_url( $url, 'vip__nonce_action', 'vip__nonce_name' );
 
-	if ( ! isset( $_GET['sc_vip__nonce_name'] ) || ! wp_verify_nonce( $_GET['sc_vip__nonce_name'], 'sc_vip__nonce_action' ) ) {
+	if ( ! isset( $_GET['vip__nonce_name'] ) || ! wp_verify_nonce( $_GET['vip__nonce_name'], 'vip__nonce_action' ) ) {
 		?>
 		<a href="<?php $nonce_url ?>" class="button button-primary">Nonce URL »</a>
 		<?php
