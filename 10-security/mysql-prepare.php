@@ -1,7 +1,11 @@
 <?php
 
 // Title starts with
-// Adds 'search' query argument to where clause securely.
+/**
+ * Add 'search' query argument to where clause securely.
+ *
+ * @see https://codex.wordpress.org/Class_Reference/wpdb#Protect_Queries_Against_SQL_Injection_Attacks
+ */
 function sc_vip__posts_where( $where, $query ) {
 	global $wpdb;
 	$start = $query->get( 'search' );
