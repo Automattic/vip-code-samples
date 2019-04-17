@@ -7,7 +7,7 @@ function sc_vip__posts_where( $where, $query ) {
 	$start = $query->get( 'search' );
 	if ( $start ) {
                 $escaped_start = $wpdb->esc_like( $start ) . '%';
-                $where .= $wpdb->prepare( " AND $wpdb->posts.post_title LIKE %s", $escaped_start );
+                $where .= $wpdb->prepare( " AND {$wpdb->posts}.post_title LIKE %s", $escaped_start );
 	}
 	return $where;
 }
