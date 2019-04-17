@@ -32,6 +32,7 @@ This can be particularly dangerous if the data being inserted comes from the URL
 
 See the code sample for how to overcome this.
 
+
 ### [Database prepare statements](mysql-prepare.php)
 SQL injection is an attack vector that is very common. Hackers can insert SQL into your queries
 and cause havoc, insert text into your post content, create a backdoor user, or steal data.
@@ -53,3 +54,30 @@ However, because it doesn't use a prepare statement, the input data will not be 
 Someone providing a query parameter or form input can easily access the database with a string such as `foo' || DROP TABLE wp_posts;;`
 
 That makes the SQL look like `AND $wpdb->posts.post_title LIKE 'foo' || DROP TABLE wp_posts;;`
+
+
+### [Escaping Dynamic JavaScript Values](js-dynamic.php)
+
+When it comes to sending dynamic data from PHP for JavaScript, care must be taken to ensure values are properly escaped. All values should be encoded and possibly decoded using variety of functions.
+
+```php
+<script type="text/javascript">
+    /* ❌ These approaches are incorrect */
+    var name  = '<?php echo $name; ?>';
+    var title = '<?php echo esc_js( $title ); ?>';
+    var url   = '<?php echo esc_url( $url ); ?>';
+    var html  = '<?php echo '<h1>' . $title . '</h1>'; ?>';
+    var obj   = <?php echo wp_json_encode( $array ); ?>;
+</script>
+```
+
+In the snippet above:
+
+* if `$name;` had an exploited value like `'; alert(1); //`, our script would be modified and an XSS attack would be possible
+* the `esc_js()` function was originally built for inline attributes (like `onclick`) it is not secure enough for uses outside of attributes
+* `esc_url()`'ing a value does make it harder to exploit, however the value should still be encoded
+* HTML should not be construction or added to the DOM via Javascript as a string, this leaves the site vulnerable to XSS attacks. The `$title` value should be escaped and encoded, then the `<h1>` element should be created in JS, and the title text node added.
+* When sending objects, we need to ensure the values are properly encoded
+
+See [the code sample](js-dynamic.php) for how to properly encode and prepare these values.
+

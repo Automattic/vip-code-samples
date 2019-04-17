@@ -3,7 +3,7 @@ Query Optimization
 
 Some of the biggest challenges in a successful site is the impact of a large posts table on certain normally quick queries.
 
-As your database grows, you'll need to account for that growth, and make adjustments to both PHP built queries and to 
+As your database grows, you'll need to account for that growth, and make adjustments to both PHP built queries and to
 REST API requests that generate queries.
 
 You can do that in a few ways: filtering queries using built-in query filters, or modifying the original query or request.
@@ -16,17 +16,17 @@ $args = [
 ];
 $posts = new WP_Query( $args );
 ```
-This is similar to the query that is run on a Category archive page. For example, if you have a "news" category 
+This is similar to the query that is run on a Category archive page. For example, if you have a "news" category
 that is loaded at https://mysite.com/news/ then the above is what is used on category.php.
 
 Normally, without any filtering, this is the actual SQL query produced and sent to MySQL:
 
 ```sql
 SELECT SQL_CALC_FOUND_ROWS wp_posts.ID
-FROM wp_posts 
-LEFT JOIN wp_term_relationships ON 
+FROM wp_posts
+LEFT JOIN wp_term_relationships ON
     (wp_posts.ID = wp_term_relationships.object_id)
-WHERE 1=1 AND ( 
+WHERE 1=1 AND (
     wp_term_relationships.term_taxonomy_id IN (6,22,44,88,201,10276) )
     AND wp_posts.post_type = 'post'
     AND (wp_posts.post_status = 'publish' OR wp_posts.post_status = 'private')
@@ -43,7 +43,7 @@ category. Let's see where this may be inefficient and how you can speed things u
 First, you'll note the taxonomy ID list also includes several other IDs - those are child categories such as "Political News" that
 are likely unnecessary if the posts already are tagged "News".
 
-If you run EXPLAIN on the query above, and you do have a lot of posts in wp_posts, you'll likely see 
+If you run EXPLAIN on the query above, and you do have a lot of posts in wp_posts, you'll likely see
 something like this:
 
 ```
@@ -96,10 +96,10 @@ add_action( 'pre_get_posts', 'my_performance_improvement_query_filter' );
 Now the query that is built looks like:
 ```sql
 SELECT SQL_CALC_FOUND_ROWS wp_posts.ID
-FROM wp_posts 
-LEFT JOIN wp_term_relationships ON 
+FROM wp_posts
+LEFT JOIN wp_term_relationships ON
     (wp_posts.ID = wp_term_relationships.object_id)
-WHERE 1=1 AND ( 
+WHERE 1=1 AND (
     wp_term_relationships.term_taxonomy_id IN (6) )
     AND wp_posts.post_type = 'post'
     AND (wp_posts.post_status = 'publish' OR wp_posts.post_status = 'private')
@@ -118,8 +118,57 @@ And the EXPLAIN:
 | 1  | SIMPLE      | wp_term_relationships | eq_ref| PRIMARY,term_taxonomy_id | PRIMARY          | 16      | wp_posts.ID | 1    | Using where; Using index                           |
 +----+-------------+-----------------------+-------+--------------------------+------------------+---------+-------------+------+----------------------------------------------------+
 ```
-So instead of 700k posts, we're only sorting 6k posts now (the number of posts since 1 month ago) 
-- which is a huge improvement and will speed up the query (and page generation) and 
+So instead of 700k posts, we're only sorting 6k posts now (the number of posts since 1 month ago)
+- which is a huge improvement and will speed up the query (and page generation) and
 reduce the load on the database.
 
 You can apply the same query filtering on a REST API request.
+
+
+## Common Mistakes with `WP_Query`
+
+The [`get_posts()`](https://developer.wordpress.org/reference/classes/wp_query/get_posts/) method may be mistaken as a getter for the posts property, however it is not. Calling this outside of the constructor as demonstrated below will an additional query which may be broken and/or an under performant query.
+
+```php
+$args = [
+  'posts_per_page'      => '10',
+  'post_type'           => 'post',
+  'post_status'         => 'publish',
+  'no_found_rows'       => true,
+  'ignore_sticky_posts' => true,
+  'cat'                 => 123
+];
+$my_query = new WP_Query( $args );
+```
+
+The above will query for these posts via the class constructor. The query will run as expected:
+
+```sql
+SELECT wp_posts.ID FROM wp_posts LEFT JOIN wp_term_relationships ON (wp_posts.ID = wp_term_relationships.object_id) WHERE 1=1 AND (
+wp_term_relationships.term_taxonomy_id IN (123)
+) AND wp_posts.post_type = 'post' AND ((wp_posts.post_status = 'publish')) GROUP BY wp_posts.ID ORDER BY wp_posts.post_date DESC LIMIT 0, 10
+```
+
+And the posts can be retrieved with:
+
+```php
+/* ✅ This approach is correct. */
+$my_posts = $my_query->posts;
+```
+
+However, if the following is used by mistake instead of the `posts` property, a second query will fire. This query in addition to adding an unnecessary query, may break the intended query.
+
+```php
+/* ❌ This approach is incorrect. */
+$my_posts = $my_query->get_posts();
+```
+
+In additional to the query fired from the constructor, the above example would result in a second query with an extra under performant `LEFT JOIN`:
+
+```sql
+SELECT wp_posts.ID FROM wp_posts LEFT JOIN wp_term_relationships ON (wp_posts.ID = wp_term_relationships.object_id) LEFT JOIN wp_term_relationships AS tt1 ON (wp_posts.ID = tt1.object_id) WHERE 1=1 AND (
+wp_term_relationships.term_taxonomy_id IN (123)
+AND
+tt1.term_taxonomy_id IN (123)
+) AND wp_posts.post_type = 'post' AND ((wp_posts.post_status = 'publish')) GROUP BY wp_posts.ID ORDER BY wp_posts.post_date DESC LIMIT 0, 10
+```
