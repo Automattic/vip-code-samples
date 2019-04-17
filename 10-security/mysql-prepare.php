@@ -1,6 +1,5 @@
 <?php
 
-// Title starts with
 /**
  * Add 'search' query argument to where clause securely.
  *
