@@ -32,7 +32,7 @@ This can be particularly dangerous if the data being inserted comes from the URL
 
 See the code sample for how to overcome this.
 
-### [database Prepare statements](mysql-prepare.php)
+### [Database prepare statements](mysql-prepare.php)
 SQL injection is an attack vector that is very common. Hackers can insert SQL into your queries
 and cause havoc, insert text into your post content, create a backdoor user, or steal data.
 WordPress provides tools to build custom queries that avoid introducing these vulnerabilities.
