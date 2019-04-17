@@ -29,7 +29,7 @@ function vip__ajax_form_callback() {
 	jQuery(document).ready( function($) {
 		var data = {
 			action: 'vip__ajax_form_action',
-			security: <?php echo wp_json_encode( $ajax_nonce ); ?>,
+			_vip__nonce: <?php echo wp_json_encode( $ajax_nonce ); ?>,
 			my_string: 'Freedom to Publish!'
 		};
 		$('#click_me').click(function() {
@@ -52,7 +52,7 @@ add_action( 'wp_ajax_vip__ajax_form_action', function() {
 	 *
 	 * @see https://codex.wordpress.org/Function_Reference/wp_verify_nonce
 	 */
-	if ( ! isset( $_POST['security'] ) || ! wp_verify_nonce( $_POST['security'], 'vip__ajax_form_nonce' ) ) {
+	if ( ! isset( $_POST['_vip__nonce'] ) || ! wp_verify_nonce( $_POST['_vip__nonce'], 'vip__ajax_form_nonce' ) ) {
 		wp_send_json_error( '❌ invalid nonce' );
 	}
 	if ( ! current_user_can( 'publish_posts' ) ) {
