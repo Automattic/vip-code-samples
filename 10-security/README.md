@@ -34,4 +34,19 @@ See the code sample for how to overcome this.
 
 ### [Escaping Dynamic JavaScript Values](js-dynamic.php)
 
-When it comes to sending dynamic data from PHP for JavaScript, care must be taken to ensure values are properly escaped. All values should be encoded and possibly decoded using variety of functions. See the code sample for examples.
+When it comes to sending dynamic data from PHP for JavaScript, care must be taken to ensure values are properly escaped. All values should be encoded and possibly decoded using variety of functions.
+
+```php
+<script type="text/javascript">
+    /* ❌ These approaches are incorrect */
+    var name  = '<?php echo $name; ?>';
+    var title = '<?php echo esc_js( $title ); ?>';
+    var url   = '<?php echo esc_url( $url ); ?>';
+    var html  = '<?php echo '<h1>' . esc_html( $title ) . '</h1>'; ?>';
+    var obj   = <?php echo wp_json_encode( $array ); ?>;
+</script>
+```
+
+Not sending these values properly could lead to exploit. For example, if `$name;` had a value of `'; alert(1); //`, our script would render as `var name  = ''; alert(1); //';` on the visitors browser.
+
+See [the code sample](js-dynamic.php) for how to properly encode and prepare these values.
