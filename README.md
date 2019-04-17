@@ -1,4 +1,4 @@
-# sample-code-vip
+# VIP Code Samples
 Sample code snippets for a secure and performant WordPress.com VIP site
 
 ## About this repository

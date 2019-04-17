@@ -45,12 +45,12 @@ function callback() {
 
 ### Prefixing
 
-In case the user forgets to add their own prefix while implementing the code, all functions and classes should include a prefix to help avoid name collisions. For consistency, avoid `my_`, `your_`, or `awesome_theme_` type prefixes, were possible prefix with `sc_vip__`.
+In case the user forgets to add their own prefix while implementing the code, all functions and classes should include a prefix to help avoid name collisions. For consistency, avoid `my_`, `your_`, or `awesome_theme_` type prefixes, were possible prefix with `vip__`.
 
 ```php
-add_action( 'init', 'sc_vip__load_site' );
+add_action( 'init', 'vip__load_site' );
 
-function sc_vip__load_site() {
+function vip__load_site() {
     // ...
 }
 ```
