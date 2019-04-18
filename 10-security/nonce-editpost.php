@@ -40,9 +40,9 @@ add_action( 'save_post', function ( $post_id, $post ) {
 	 * @see https://codex.wordpress.org/Function_Reference/wp_verify_nonce
 	 */
 	if ( ! isset( $_POST['_vip__nonce'] ) || ! wp_verify_nonce( $_POST['_vip__nonce'], 'vip__metabox_checkbox' ) ) {
-		wp_die( 'Invalid nonce. Page may have expired, please try again.' );
+		return;
 	}
 
 	// valid request, do somthing with `$_POST['vip__checkbox']`.
 
-} );
+}, 10, 2 );
