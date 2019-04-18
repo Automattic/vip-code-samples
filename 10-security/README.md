@@ -32,6 +32,30 @@ This can be particularly dangerous if the data being inserted comes from the URL
 
 See the code sample for how to overcome this.
 
+
+### [Database prepare statements](mysql-prepare.php)
+SQL injection is an attack vector that is very common. Hackers can insert SQL into your queries
+and cause havoc, insert text into your post content, create a backdoor user, or steal data.
+WordPress provides tools to build custom queries that avoid introducing these vulnerabilities.
+
+#### Always use prepare statements on variable input.
+
+This bit of code presents an attack vector. It seems to be adding a WHERE clause that searches post_title for
+titles starting with the supplied search string, e.g. 'Amaz' might find posts such as 'Amazon announces...'
+
+```
+$start = $query->get( 'search' );
+if ( $start ) {
+	$where .= " AND $wpdb->posts.post_title LIKE '$start%'";
+```
+
+However, because it doesn't use a prepare statement, the input data will not be safe from exploitation.
+
+Someone providing a query parameter or form input can easily access the database with a string such as `foo' || DROP TABLE wp_posts;;`
+
+That makes the SQL look like `AND $wpdb->posts.post_title LIKE 'foo' || DROP TABLE wp_posts;;`
+
+
 ### [Escaping Dynamic JavaScript Values](js-dynamic.php)
 
 When it comes to sending dynamic data from PHP for JavaScript, care must be taken to ensure values are properly escaped. All values should be encoded and possibly decoded using variety of functions.
@@ -56,3 +80,4 @@ In the snippet above:
 * When sending objects, we need to ensure the values are properly encoded
 
 See [the code sample](js-dynamic.php) for how to properly encode and prepare these values.
+
