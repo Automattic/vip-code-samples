@@ -1,5 +1,5 @@
 <?php
-// add custom mediabox to Posts.
+// add custom meta to posts.
 add_action( 'add_meta_boxes', function () {
 	add_meta_box(
 		'vip__metabox_nonce_example',
