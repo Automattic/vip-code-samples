@@ -53,10 +53,10 @@ add_action( 'wp_ajax_vip__ajax_form_action', function() {
 	 * @see https://codex.wordpress.org/Function_Reference/wp_verify_nonce
 	 */
 	if ( ! isset( $_POST['_vip__nonce'] ) || ! wp_verify_nonce( $_POST['_vip__nonce'], 'vip__ajax_form_nonce' ) ) {
-		wp_send_json_error( '❌ invalid nonce' );
+		wp_send_json_error( 'invalid nonce' );
 	}
 	if ( ! current_user_can( 'publish_posts' ) ) {
-		wp_send_json_error( '❌ invalid permissions' );
+		wp_send_json_error( 'invalid permissions' );
 	}
 
 	$data   = sanitize_text_field( $_POST['my_string'] );
