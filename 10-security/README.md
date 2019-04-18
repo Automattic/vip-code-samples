@@ -10,7 +10,7 @@ Input sanitization ensures that code is only handling safe and expected values o
 ### nonces
 A nonce ensures that the action being taken in a form came from the form and was intended by the user. Uses nonces helps combat agaisnt [CSRF](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)) attacks.
 
-While validating a nonce, always be careful of what operator you use in your conditional. The follow appears safe at a glance:
+While validating a nonce, always be careful of what operator you use in your conditional. The follow appears safe at a glance but is eaisly exploitable by submitting any nonce value:
 
 ```php
 // ❌ incorrect nonce validation.
