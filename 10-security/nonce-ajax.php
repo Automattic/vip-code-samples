@@ -1,5 +1,5 @@
 <?php
-// Create a menu page for our AJAX script.
+// Create a menu page for the demo AJAX script.
 add_action( 'admin_menu', function() {
 	add_menu_page(
 		'AJAX Nonce Example',
@@ -10,12 +10,10 @@ add_action( 'admin_menu', function() {
 	);
 } );
 
-// Contents for the Ajax Form menu page.
+// Contents for the demo menu page.
 function vip__ajax_form_callback() {
 	/**
-	 * Create the nonce for our admin page.
-	 *
-	 * Include the action name for context.
+	 * Create the nonce for the admin page, including the action name for context.
 	 *
 	 * @see https://codex.wordpress.org/Function_Reference/wp_create_nonce
 	 */
@@ -26,29 +24,27 @@ function vip__ajax_form_callback() {
 	<pre id='vip__ajax_form_output'></pre>
 
 	<script type="text/javascript">
-	jQuery(document).ready( function($) {
-		var data = {
-			action: 'vip__ajax_form_action',
-			_vip__nonce: <?php echo wp_json_encode( $ajax_nonce ); ?>,
-			my_string: 'Freedom to Publish!'
-		};
-		$('#click_me').click(function() {
-			// Post our request to WordPress' AJAX URL.
-			$.post( ajaxurl, data, function( response ) {
-				$('#vip__ajax_form_output').text("Response: " + response.data);
+		jQuery(document).ready( function($) {
+			var data = {
+				action: 'vip__ajax_form_action',
+				_vip__nonce: <?php echo wp_json_encode( $ajax_nonce ); ?>,
+				my_string: 'Freedom to Publish!'
+			};
+			$('#click_me').click(function() {
+				// Post the request to WordPress' AJAX URL.
+				$.post( ajaxurl, data, function( response ) {
+					$('#vip__ajax_form_output').text("Response: " + response.data);
+				});
 			});
 		});
-	});
 	</script>
 	<?php
 }
 
-// Our AJAX hook for the POST request.
+// The AJAX hook for the demo forms POST request.
 add_action( 'wp_ajax_vip__ajax_form_action', function() {
 	/**
-	 * Verify the nonce exists & verify it's correct.
-	 *
-	 * Include the action name for context.
+	 * Verify the nonce exists & and is correct.
 	 *
 	 * @see https://codex.wordpress.org/Function_Reference/wp_verify_nonce
 	 */

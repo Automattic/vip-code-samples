@@ -1,5 +1,5 @@
 <?php
-// add custom meta to posts.
+// Add custom metabox to `post` post types.
 add_action( 'add_meta_boxes', function () {
 	add_meta_box(
 		'vip__metabox_nonce_example',
@@ -43,6 +43,6 @@ add_action( 'save_post', function ( $post_id, $post ) {
 		return;
 	}
 
-	// valid request, do somthing with `$_POST['vip__checkbox']`.
+	// valid request, do something with `$_POST['vip__checkbox']`.
 
 }, 10, 2 );

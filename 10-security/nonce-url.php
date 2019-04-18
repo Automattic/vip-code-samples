@@ -1,5 +1,5 @@
 <?php
-// Create a menu page for our nonce URL example.
+// Create a menu page for the demo nonce URL link.
 add_action( 'admin_menu', function() {
 	add_menu_page(
 		'URL Nonce Example',
@@ -10,10 +10,10 @@ add_action( 'admin_menu', function() {
 	);
 } );
 
-// Contents for the example menu page.
+// Contents for the demo nonce URL page.
 function vip__nonce_url_link_callback () {
 	/**
-	 * Verify the nonce exists & verify it's correct.
+	 * Verify the nonce URL exists & is legitimate.
 	 *
 	 * @see https://codex.wordpress.org/Function_Reference/wp_verify_nonce
 	 */
