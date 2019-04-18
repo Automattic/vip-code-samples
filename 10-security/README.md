@@ -8,7 +8,18 @@ The examples here are meant to supplement materials in the [developer handbook](
 Input sanitization ensures that code is only handling safe and expected values of input.
 
 ### nonces
-A nonce ensures that the action being taken in a form came from the form and was intended by the user.
+A nonce ensures that the action being taken in a form came from the form and was intended by the user. Uses nonces helps combat agaisnt [CSRF](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)) attacks.
+
+While validating a nonce, always be careful of what operator you use in your conditional. The follow appears safe at a glance but is eaisly exploitable by submitting any nonce value:
+
+```php
+// ❌ incorrect nonce validation.
+if ( ! isset( $_POST['_wpnonce'] ) && ! wp_verify_nonce( $_POST['_wpnonce'], 'update-post' )  ) {
+  return;
+}
+```
+
+Take a look at the following code examples for properly using nonces in [AJAX requests](nonce-ajax.php), [links](nonce-url.php), and [form submissions](nonce-editpost.php).
 
 ### [output escaping](output-escaping.php)
 Output escaping is meant to prevent XSS and similar attacks.
