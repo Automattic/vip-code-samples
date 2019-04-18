@@ -55,7 +55,7 @@ add_action( 'wp_ajax_vip__ajax_form_action', function() {
 		wp_send_json_error( 'invalid permissions' );
 	}
 
-	$data   = sanitize_text_field( $_POST['my_string'] );
+	$data   = esc_html( sanitize_text_field( $_POST['my_string'] ) );
 	$return = '✅ Nonce is valid! Data is: ' . $data;
 
 	wp_send_json_success( [ $return ] );
