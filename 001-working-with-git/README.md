@@ -19,9 +19,11 @@ If you prefer to use a plugin from a public repo as a submodule rather than copy
 
 add a reference in .gitmodules:
 
+```
 [submodule "path_to_submodule"] 
   path = path_to_submodule 
   url = git://url-of-source/
+```
 
 This also applies if you copy a plugin that internally uses a submodule; for that, you'll need to put the 
 submodule reference in the top-level .gitmodules file.
