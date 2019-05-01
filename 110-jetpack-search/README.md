@@ -9,10 +9,15 @@ Before enabling Jetpack search, please ensure that your site has been indexed.
 
 // How to check?
 
-## [Enable Jetpack Search via filters](jetpack-search.php)
+## [Enable Jetpack Search](jetpack-search.php)
+
+You just need to enable the Search module in Jetpack to have Jetpack Search handle standard built-in WordPress search queries.
+
+We've provided a code snippet that permits enabling it via code, avoiding having it inadvertently disabled in the admin.
+
+### Enabling for WP_Query
 
 A filter to add 'es' => 'true' to the WP_Query parameters allows you to enable existing queries, such as those for 
-a category page, or site search.
+a category page or a custom widget, to use Jetpack's index.
 
-== Manually using WP_Query
-
+This results in supported queries being sent to Jetpack Search to obtain a list of matching post IDs, and then a MySQL query will fetch the post data.
