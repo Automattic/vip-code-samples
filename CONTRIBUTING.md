@@ -57,9 +57,9 @@ function vip__load_site() {
 
 ### VIPCS
 
-All code included should be compliment with WordPress-VIP-Go sniffs from [VIPCS](https://github.com/Automattic/VIP-Coding-Standards),
+All code included should be compliant with WordPress-VIP-Go sniffs from [VIPCS](https://github.com/Automattic/VIP-Coding-Standards).
 
-Avoid `// phpcs:ignore` as this encourages silencing instead of fixing.
+Please avoid `// phpcs:ignore` as this encourages silencing instead of fixing.
 
 ### ESLint
 
