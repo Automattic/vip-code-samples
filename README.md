@@ -56,6 +56,9 @@ Common causes of errors are: declaring functions that haven't been loaded, acess
 
 ### [WordPress Basics: hooks and filters](30-basics)
 
+### [Customizing WordPress](40-customizing)
+Learn how to add user roles, etc.
+
 ### Debugging in development
 Use WP_DEBUG, utilize the debug bar,
 
