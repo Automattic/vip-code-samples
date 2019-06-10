@@ -2,6 +2,11 @@
 ## Working with Git and GitHub
 
 ### Pull request flow
+Create a pull request for every change you make to the master branch. Try to keep these small and focused on one change.
+
+Typical flow for pushing each change to production is to create a change branch, test locally, and then create a pull request from the change branch against master.
+
+Always review your pull request directly on GitHub - it's a good opportunity to look the changes over again, make sure the formatting is consistent, and usually a good time to catch minor typos or omissions.
 
 ### Pull requests and PHPCS
 The VIP bot runs when a pull request is opened. To obtain the benefits of automated reviews, always open a pull request against master, never push code directly to master.
