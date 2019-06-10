@@ -31,11 +31,14 @@ function is_us_zip_code( $zip_code ) {
 }
 
 if ( isset( $_POST['wporg_zip_code'] ) && is_us_zip_code( sanitize_text_field( $_POST['wporg_zip_code'] ) ) ) {
-    // assign the sanitized data
-    $zip = sanitize_text_field( $_POST['wporg_zip_code'] );
+    // assign the sanitized data; in theory wp_unslash is not relevant to ZIP codes but may be needed for
+    // other types of strings
+    $zip = sanitize_text_field( wp_unslash( $_POST['wporg_zip_code'] )  );
+}
 
-    // another way, does not use WordPress sanitization, does avoid PHPCS warnings
-    filter_input( INPUT_POST, 'wporg_zip_code', FILTER_SANITIZE_STRING );
+// another way, does not use WordPress sanitization, does avoid PHPCS warnings
+if ( $zip = filter_input( INPUT_POST, 'wporg_zip_code', FILTER_SANITIZE_STRING ) &&
+     is_us_zip_code( $zip ) ) {
 
-    // your action
+    // your action with $zip
 }
