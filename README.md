@@ -60,7 +60,18 @@ Common causes of errors are: declaring functions that haven't been loaded, acess
 Learn how to add user roles, etc.
 
 ### Debugging in development
-Use WP_DEBUG, utilize the debug bar,
+Use WP_DEBUG, utilize the debug bar, and monitor error logs with a view to keeping logs as empty as possible.
+
+For example, if deprecation warnings are thrown frequently, they should be resolved.
+
+If code occasionally throws warnings because of unexpected data, adding a bit of extra result checking helps keep the error logs relatively clean.
+
+### Production issues and warnings
+In production, errors are surfaced for VIP sites in New Relic. Errors should be addressed promptly.
+
+With a clean error log (i.e. no errors or warnings or notices at all) it's easy to configure New Relic alerts to flag new issues.
+
+Avoid throwing uncaught errors. Instead, use [New Relic noticeError](https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api/notice-error) to send messages directly to New Relic.
 
 ## Performance and optimization
 Performance tuning, and optimization strategies, help your site scale, perform better with fewer resources, and be more
@@ -83,30 +94,17 @@ You can enable Jetpack search on your site and offload common WordPress search f
 
 ### [Image resizing](120-images)
 
-### Filesystem
-
-### Making remote requests
-
-### Using the Debug Bar
-
-## Common tweaks and changes
-
-### Disabling a main query
-
-### Redirecting a domain
+### [Filesystem](130-filesystem)
 
 ## Typical issues and how to prevent them
 
 ### Search on 404 page
+Avoid running any queries, remote requests, or code that may result in an expensive request on a 404 page. It may be tempting to supply a list of possibly related articles but a sudden search engine sweep of old URLs may cause site instability with a lot of queries. If using a cache, do not replenish the cache when empty.
 
 ### REST API performance
+The REST API was designed for flexibility, but on a site with a lot of articles, it may need some query filtering to optimize.
 
-### The block editor
-
-### Mobile app endpoints
-
-### Header navigation generation
-
-### Many posts and slower basic queries
+There are also potential issues with frequent REST requests from browsers with GET parameters.
 
 ## [Miscellaneous things](999-misc)
+THese items did not fit anywhere else, but may be helpful in certain cases.
