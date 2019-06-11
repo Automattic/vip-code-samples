@@ -34,9 +34,9 @@ then please open a support ticket with us and we'll help clarify or assist you i
 problem.
 
 ## [General setup & getting started](00-getting-started)
-Install PHPCS and use it to help identify possible issues.
+Install [PHPCS](https://wpvip.com/documentation/how-to-install-php-code-sniffer-for-wordpress-com-vip/) and use it to help identify possible issues. Most of the examples here will use WordPress-VIP-Go standards.
 
-A sample PHPCS configuration is included, but you can run PHPCS without it by setting up a general configuration.
+A [sample PHPCS configuration is included](phpcs.xml), but you can run PHPCS without it by setting up a general configuration.
 
 ### [Working with Git](001-working-with-git)
 You'll be using Git and GitHub to manage your code and deploy it to your WordPress environments.
@@ -107,4 +107,4 @@ The REST API was designed for flexibility, but on a site with a lot of articles,
 There are also potential issues with frequent REST requests from browsers with GET parameters.
 
 ## [Miscellaneous things](999-misc)
-THese items did not fit anywhere else, but may be helpful in certain cases.
+These items did not fit anywhere else, but may be helpful in certain cases.
