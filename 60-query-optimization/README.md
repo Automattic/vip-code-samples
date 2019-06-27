@@ -70,6 +70,11 @@ back. And add the `date_query` attribute below.
 2. Remove the [child categories](https://vip.wordpress.com/documentation/term-queries-should-consider-include_children-false/).
 That's accomplished by adding the `include_children` attribute below.
 
+⚠ Note: the 'after' attribute only sets a date, not a time. 
+That means the SQL will look like '2019-06-06 00:00:00' rather than '2019-06-06 12:53:16'
+The reason for this is to avoid having a bunch of different queries where the only difference is the 
+minutes and seconds. That defeats MySQL's [built in query caching](https://mariadb.com/kb/en/library/query-cache/), and can reduce performance.
+
 ```php
 function my_performance_improvement_query_filter( $query ) {
 	if ( is_admin() || ! $query->is_main_query() ) {
@@ -79,12 +84,12 @@ function my_performance_improvement_query_filter( $query ) {
 		$query->set( 'include_children', false );
 	}
 	if ( $query->is_category( 6 ) ) {
-	    $last_month = strtotime( 'last month' );
+	    $recent = strtotime( 'last month' );
 		$date_filter = [
 			'after' => [
-				'year' => date( 'Y', $last_month ),
-				'month' => date( 'n', $last_month ),
-				'day' => date( 'j', $last_month ),
+				'year' => date( 'Y', $recent ),
+				'month' => date( 'n', $recent ),
+				'day' => date( 'j', $recent ),
 			]
 		];
 		$query->set( 'date_query', $date_filter );

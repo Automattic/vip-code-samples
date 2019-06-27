@@ -16,12 +16,12 @@ function my_main_query_filter( $query ) {
 	// Only perform this action on the News category
 	if ( is_category( 6 ) ) {
 		// limit to posts since 1 month ago
-		$last_month = strtotime( 'last month' );
+		$recent = strtotime( 'last month' );
 		$date_filter = [
 			'after' => [
-				'year' => date( 'Y', $last_month ),
-				'month' => date( 'n', $last_month ),
-				'day' => date( 'j', $last_month ),
+				'year' => date( 'Y', $recent ),
+				'month' => date( 'n', $recent ),
+				'day' => date( 'j', $recent ),
 			]
 		];
 		$query->set( 'date_query', $date_filter );
