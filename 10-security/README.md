@@ -72,14 +72,34 @@ That makes the SQL look like `AND $wpdb->posts.post_title LIKE 'foo' || DROP TAB
 When it comes to sending dynamic data from PHP for JavaScript, care must be taken to ensure values are properly escaped. All values should be encoded and possibly decoded using variety of functions.
 
 ```php
+// ..
+// ..
+?>
+
+<!-- ❌Don't do this: -->
 <script type="text/javascript">
-    /* ❌ These approaches are incorrect */
     var name  = '<?php echo $name; ?>';
     var title = '<?php echo esc_js( $title ); ?>';
     var url   = '<?php echo esc_url( $url ); ?>';
     var html  = '<?php echo '<h1>' . $title . '</h1>'; ?>';
     var obj   = <?php echo wp_json_encode( $array ); ?>;
 </script>
+
+<!--  ✅Do this instead: -->
+<script type="text/javascript">
+	var name  = decodeURIComponent( '<?php echo rawurlencode( (string) $name ); ?>' );
+	var title = decodeURIComponent( '<?php echo rawurlencode( (string) $title ); ?>' );
+	var url   = <?php echo wp_json_encode( esc_url( $url ) ) ?>;
+	var html  = document.createElement('h1');
+	html.innerText = title;
+	var obj   = JSON.parse( decodeURIComponent( '<?php
+		echo rawurlencode( wp_json_encode( $array ) );
+	?>' ) );
+</script>
+
+<?php
+// ..
+// ..
 ```
 
 In the snippet above:
