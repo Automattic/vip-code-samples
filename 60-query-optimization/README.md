@@ -149,9 +149,17 @@ $my_query = new WP_Query( $args );
 The above will query for these posts via the class constructor. The query will run as expected:
 
 ```sql
-SELECT wp_posts.ID FROM wp_posts LEFT JOIN wp_term_relationships ON (wp_posts.ID = wp_term_relationships.object_id) WHERE 1=1 AND (
-wp_term_relationships.term_taxonomy_id IN (123)
-) AND wp_posts.post_type = 'post' AND ((wp_posts.post_status = 'publish')) GROUP BY wp_posts.ID ORDER BY wp_posts.post_date DESC LIMIT 0, 10
+SELECT wp_posts.ID
+FROM wp_posts
+LEFT JOIN wp_term_relationships ON
+  (wp_posts.ID = wp_term_relationships.object_id)
+WHERE 1=1 AND (
+  wp_term_relationships.term_taxonomy_id IN (123) )
+  AND wp_posts.post_type = 'post'
+  AND ((wp_posts.post_status = 'publish'))
+GROUP BY wp_posts.ID
+ORDER BY wp_posts.post_date
+DESC LIMIT 0, 10
 ```
 
 And the posts can be retrieved with:
@@ -171,9 +179,18 @@ $my_posts = $my_query->get_posts();
 In additional to the query fired from the constructor, the above example would result in a second query with an extra under performant `LEFT JOIN`:
 
 ```sql
-SELECT wp_posts.ID FROM wp_posts LEFT JOIN wp_term_relationships ON (wp_posts.ID = wp_term_relationships.object_id) LEFT JOIN wp_term_relationships AS tt1 ON (wp_posts.ID = tt1.object_id) WHERE 1=1 AND (
-wp_term_relationships.term_taxonomy_id IN (123)
-AND
-tt1.term_taxonomy_id IN (123)
-) AND wp_posts.post_type = 'post' AND ((wp_posts.post_status = 'publish')) GROUP BY wp_posts.ID ORDER BY wp_posts.post_date DESC LIMIT 0, 10
+SELECT wp_posts.ID
+FROM wp_posts
+LEFT JOIN wp_term_relationships ON
+  (wp_posts.ID = wp_term_relationships.object_id)
+LEFT JOIN wp_term_relationships AS tt1 ON
+  (wp_posts.ID = tt1.object_id)
+WHERE 1=1 AND (
+  wp_term_relationships.term_taxonomy_id IN (123)
+  AND tt1.term_taxonomy_id IN (123) )
+  AND wp_posts.post_type = 'post'
+  AND ((wp_posts.post_status = 'publish'))
+GROUP BY wp_posts.ID
+ORDER BY wp_posts.post_date
+DESC LIMIT 0, 10
 ```
