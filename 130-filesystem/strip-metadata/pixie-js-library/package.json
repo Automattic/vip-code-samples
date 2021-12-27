@@ -1,15 +1,15 @@
 {
-  "name": "pixie-js-library",
-  "version": "1.0.0",
-  "description": "Pixie JS Exif Removal Sample",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Ovidiu Liuta",
-  "license": "ISC",
-  "dependencies": {
-    "http-server": "^14.0.0",
-    "piexif": "0.0.2"
-  }
+	"name": "pixie-js-library",
+	"version": "1.0.0",
+	"description": "Pixie JS Exif Removal Sample",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "Ovidiu Liuta",
+	"license": "ISC",
+	"dependencies": {
+		"http-server": "^14.0.0",
+		"piexif": "0.0.2"
+	}
 }
