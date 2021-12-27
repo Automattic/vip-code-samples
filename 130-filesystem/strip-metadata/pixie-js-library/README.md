@@ -11,7 +11,7 @@ npm install
 ## Running the example
 
 ```
-node_modules/http-server/bin/http-server ./
+node_modules/http-server/bin/http-server -o -p 9091 ./src
 ```
 
 Open http://127.0.0.1:8081/ to access the test script.
