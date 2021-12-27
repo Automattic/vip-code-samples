@@ -1,25 +1,25 @@
 <html>
-    <title>Image Exif GPS Removal</title>
+	<title>Image Exif GPS Removal</title>
 
-    <head>
-        <script src="node_modules/piexif/dist/piexif.js"></script>
-        <script src="src/main.js"></script>
-    </head>
+	<head>
+		<script src="node_modules/piexif/dist/piexif.js"></script>
+		<script src="src/main.js"></script>
+	</head>
 
-    <body>
-        <h1>Media GPS Exif metadata remover</h1>
-        <input type="file" id="fileInput" />
+	<body>
+		<h1>Media GPS Exif metadata remover</h1>
+		<input type="file" id="fileInput" />
 
-        <label>Strip all Exif data</label>
-        <input type="checkbox" id="exif_remove_all" />
+		<label>Strip all Exif data</label>
+		<input type="checkbox" id="exif_remove_all" />
 
-        <input
-            type="button"
-            id="submit"
-            onclick="const e = new Event('change');document.getElementById('fileInput').dispatchEvent(e)"
-            value="Submit"
-        />
+		<input
+			type="button"
+			id="submit"
+			onclick="const e = new Event('change');document.getElementById('fileInput').dispatchEvent(e)"
+			value="Submit"
+		/>
 
-        <img id="base64image" src="" style="display: none" />
-    </body>
+		<img id="base64image" src="" style="display: none" />
+	</body>
 </html>
