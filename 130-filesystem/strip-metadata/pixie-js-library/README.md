@@ -1,10 +1,14 @@
+## Description
+
+This sample script will remove partial or full Exif metadata using the https://www.npmjs.com/package/piexif JS Library and output the resuting image on screen.
+
 ## Installation
 
 ```
 npm install
 ```
 
-## Running the examples
+## Running the example
 
 ```
 node_modules/http-server/bin/http-server ./
