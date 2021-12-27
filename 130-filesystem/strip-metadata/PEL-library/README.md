@@ -10,7 +10,7 @@ More samples can be found in https://github.com/pel/pel/tree/master/examples.
 composer install lsolesen/pel
 ```
 
-## Usages
+## Usage
 
 ```
 php pel-sample.php
