@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Ovidiu Liuta",
   "license": "ISC",
   "dependencies": {
     "http-server": "^14.0.0",
