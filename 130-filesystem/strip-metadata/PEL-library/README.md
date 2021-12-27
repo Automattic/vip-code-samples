@@ -1,6 +1,8 @@
 ## Description
 
-This sample script will remove partial or full Exif metadata using the https://github.com/pel/pel PHP Exif Library and save the resulting image.
+This sample script will partially remove GPS Exif metadata using the https://github.com/pel/pel PHP Exif Library and save the resulting image.
+
+More samples can be found in https://github.com/pel/pel/tree/master/examples.
 
 ## Installation
 
