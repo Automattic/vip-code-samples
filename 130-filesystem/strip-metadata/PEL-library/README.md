@@ -12,6 +12,14 @@ composer install lsolesen/pel
 
 ## Usage
 
+Strip all Exif metadata:
+
 ```
-php pel-sample.php
+php pel-remove-all-exif-metadata.php
+```
+
+Strip only GPS metadata:
+
+```
+php pel-remove-exif-gps-metadata.php
 ```
