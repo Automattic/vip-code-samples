@@ -1,10 +1,10 @@
 ## Strip GPS Exif Metadata Client Side
 
-https://github.com/Automattic/vip-code-samples/tree/DOCS-491-exif-strip-samples/130-filesystem/strip-metadata/pixie-js-library
+https://github.com/Automattic/vip-code-samples/tree/master/130-filesystem/strip-metadata/pixie-js-library
 
 ## Strip GPS Exif Metadata Server Side
 
-https://github.com/Automattic/vip-code-samples/tree/DOCS-491-exif-strip-samples/130-filesystem/strip-metadata/PEL-library
+https://github.com/Automattic/vip-code-samples/tree/master/130-filesystem/strip-metadata/PEL-library
 
 ## Source Images for Testing
 
