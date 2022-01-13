@@ -40,22 +40,25 @@ add_action( 'init', 'vip__check_restricted_pages' );
  */
 function vip__check_restricted_pages() {
 
+	if ( ! ( defined( 'WP_CLI' ) && WP_CLI ) ) {
+
 	// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-	$current_path = $_SERVER['REQUEST_URI'];
+		$current_path = $_SERVER['REQUEST_URI'];
 
-	$path_match = false;
+		$path_match = false;
 
-	if ( defined( 'VIP__ALLOWED_IPS' ) && is_array( VIP__ALLOWED_IPS ) ) {
-		foreach ( VIP__RESTRICTED_PATHS as $restricted_path ) {
-			if ( $current_path === $restricted_path ) {
-				$path_match = true;
-				break;
+		if ( defined( 'VIP__ALLOWED_IPS' ) && is_array( VIP__ALLOWED_IPS ) ) {
+			foreach ( VIP__RESTRICTED_PATHS as $restricted_path ) {
+				if ( $current_path === $restricted_path ) {
+					$path_match = true;
+					break;
+				}
 			}
-		}
 
-		if ( $path_match && ! is_user_logged_in() ) {
-			header( 'HTTP/1.0 403 Forbidden' );
-			exit;
+			if ( $path_match && ! is_user_logged_in() ) {
+				header( 'HTTP/1.0 403 Forbidden' );
+				exit;
+			}
 		}
 	}
 }
