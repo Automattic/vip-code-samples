@@ -17,7 +17,7 @@ define(
 
 
 /**
- * Before trying to authenticate a user or displaying the login form, check if the request is coming from valid a valid IP
+ * Before trying to authenticate a user or displaying the login form, check if the request is coming from a valid IP
  */
 add_action( 'wp_authenticate', 'vip__check_ips' );
 
@@ -44,15 +44,18 @@ function vip__check_restricted_pages() {
 	$current_path = $_SERVER['REQUEST_URI'];
 
 	$path_match = false;
-	foreach ( VIP_RESTRICTED_PATHS as $restricted_path ) {
-		if ( $current_path === $restricted_path ) {
-			$path_match = true;
-			break;
-		}
-	}
 
-	if ( $path_match && ! is_user_logged_in() ) {
-		header( 'HTTP/1.0 403 Forbidden' );
-		exit;
+	if ( defined( 'VIP__ALLOWED_IPS' ) && is_array( VIP__ALLOWED_IPS ) ) {
+		foreach ( VIP__RESTRICTED_PATHS as $restricted_path ) {
+			if ( $current_path === $restricted_path ) {
+				$path_match = true;
+				break;
+			}
+		}
+
+		if ( $path_match && ! is_user_logged_in() ) {
+			header( 'HTTP/1.0 403 Forbidden' );
+			exit;
+		}
 	}
 }
