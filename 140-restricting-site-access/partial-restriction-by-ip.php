@@ -23,7 +23,7 @@ define(
 add_action( 'wp_authenticate', 'vip__check_ips' );
 
 function vip__check_ips() {
-	if ( ! ( defined( 'WP_CLI' ) && WP_CLI ) ) {
+	if ( ! ( defined( 'WP_CLI' ) && WP_CLI ) && ! ( defined( 'A8C_PROXIED_REQUEST' ) && A8C_PROXIED_REQUEST ) ) {
      // phpcs:ignore WordPressVIPMinimum.Variables.ServerVariables.UserControlledHeaders, WordPress.Security.ValidatedSanitizedInput.InputNotValidated, WordPressVIPMinimum.Variables.RestrictedVariables.cache_constraints___SERVER__REMOTE_ADDR__
 		if ( defined( 'VIP__ALLOWED_IPS' ) && is_array( VIP__ALLOWED_IPS ) && ! in_array( $_SERVER['REMOTE_ADDR'], VIP__ALLOWED_IPS, true ) ) {
 			header( 'HTTP/1.0 403 Forbidden' );
@@ -41,7 +41,7 @@ add_action( 'init', 'vip__check_restricted_pages' );
  */
 function vip__check_restricted_pages() {
 
-	if ( ! ( defined( 'WP_CLI' ) && WP_CLI ) ) {
+	if ( ! ( defined( 'WP_CLI' ) && WP_CLI ) && ! ( defined( 'A8C_PROXIED_REQUEST' ) && A8C_PROXIED_REQUEST ) ) {
 
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		$current_path = $_SERVER['REQUEST_URI'];
